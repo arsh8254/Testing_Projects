@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- WARNING: Eclipse auto-generated file.
+              Any modifications will be overwritten.
+              To include a user specific buildfile here, simply create one in the same
+              directory with the processing instruction <?eclipse.ant.import?>
+              as the first entry and export the buildfile again. --><project basedir="." default="build" name="ARYAN">
+    <property environment="env"/>
+    <property name="ECLIPSE_HOME" value="../../../eclipse/jee-2021-12/eclipse/"/>
+    <property name="debuglevel" value="source,lines,vars"/>
+    <property name="target" value="17"/>
+    <property name="source" value="17"/>
+    <path id="ARYAN.classpath">
+        <pathelement location="bin"/>
+    </path>
+    <path id="run.ArithmeticOperators.classpath">
+        <path refid="ARYAN.classpath"/>
+    </path>
+    <path id="run.Array1D.classpath">
+        <path refid="ARYAN.classpath"/>
+    </path>
+    <path id="run.Array2D.classpath">
+        <path refid="ARYAN.classpath"/>
+    </path>
+    <path id="run.Array3D.classpath">
+        <path refid="ARYAN.classpath"/>
+    </path>
+    <path id="run.ArrayList.classpath">
+        <path refid="ARYAN.classpath"/>
+    </path>
+    <path id="run.arrayListDemo.classpath">
+        <path refid="ARYAN.classpath"/>
+    </path>
+    <path id="run.BinaryToDecimal.classpath">
+        <path refid="ARYAN.classpath"/>
+    </path>
+    <path id="run.BitWiseOperator.classpath">
+        <path refid="ARYAN.classpath"/>
+    </path>
+    <path id="run.ComparisonOperator.classpath">
+        <path refid="ARYAN.classpath"/>
+    </path>
+    <path id="run.Cuboid.classpath">
+        <path refid="ARYAN.classpath"/>
+    </path>
+    <path id="run.DoWhile.classpath">
+        <path refid="ARYAN.classpath"/>
+    </path>
+    <path id="run.EnhancedFor.classpath">
+        <path refid="ARYAN.classpath"/>
+    </path>
+    <path id="run.ForLoop.classpath">
+        <path refid="ARYAN.classpath"/>
+    </path>
+    <path id="run.hashmapdemo.classpath">
+        <path refid="ARYAN.classpath"/>
+    </path>
+    <path id="run.HashSetDemo.classpath">
+        <path refid="ARYAN.classpath"/>
+    </path>
+    <path id="run.HelloWorld.classpath">
+        <path refid="ARYAN.classpath"/>
+    </path>
+    <path id="run.IfElseIf.classpath">
+        <path refid="ARYAN.classpath"/>
+    </path>
+    <path id="run.linkedListdemo.classpath">
+        <path refid="ARYAN.classpath"/>
+    </path>
+    <path id="run.LogicalOperator.classpath">
+        <path refid="ARYAN.classpath"/>
+    </path>
+    <path id="run.Main.classpath">
+        <path refid="ARYAN.classpath"/>
+    </path>
+    <path id="run.NestedFor.classpath">
+        <path refid="ARYAN.classpath"/>
+    </path>
+    <path id="run.NestedIf.classpath">
+        <path refid="ARYAN.classpath"/>
+    </path>
+    <path id="run.queuedemo.classpath">
+        <path refid="ARYAN.classpath"/>
+    </path>
+    <path id="run.stacksdemo.classpath">
+        <path refid="ARYAN.classpath"/>
+    </path>
+    <path id="run.StreamsDemo.classpath">
+        <path refid="ARYAN.classpath"/>
+    </path>
+    <path id="run.StudentDemo.classpath">
+        <path refid="ARYAN.classpath"/>
+    </path>
+    <path id="run.SwitchDemo.classpath">
+        <path refid="ARYAN.classpath"/>
+    </path>
+    <path id="run.TestHelloWorld.classpath">
+        <path refid="ARYAN.classpath"/>
+    </path>
+    <path id="run.treemapdemo.classpath">
+        <path refid="ARYAN.classpath"/>
+    </path>
+    <path id="run.treesetdemo.classpath">
+        <path refid="ARYAN.classpath"/>
+    </path>
+    <path id="run.UnaryOperators.classpath">
+        <path refid="ARYAN.classpath"/>
+    </path>
+    <target name="init">
+        <mkdir dir="bin"/>
+        <copy includeemptydirs="false" todir="bin">
+            <fileset dir="src">
+                <exclude name="**/*.java"/>
+            </fileset>
+        </copy>
+    </target>
+    <target name="clean">
+        <delete dir="bin"/>
+    </target>
+    <target depends="clean" name="cleanall"/>
+    <target depends="build-subprojects,build-project" name="build"/>
+    <target name="build-subprojects"/>
+    <target depends="init" name="build-project">
+        <echo message="${ant.project.name}: ${ant.file}"/>
+        <javac debug="true" debuglevel="${debuglevel}" destdir="bin" includeantruntime="false" source="${source}" target="${target}">
+            <src path="src"/>
+            <classpath refid="ARYAN.classpath"/>
+        </javac>
+    </target>
+    <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
+    <target description="copy Eclipse compiler jars to ant lib directory" name="init-eclipse-compiler">
+        <copy todir="${ant.library.dir}">
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </copy>
+        <unzip dest="${ant.library.dir}">
+            <patternset includes="jdtCompilerAdapter.jar"/>
+            <fileset dir="${ECLIPSE_HOME}/plugins" includes="org.eclipse.jdt.core_*.jar"/>
+        </unzip>
+    </target>
+    <target description="compile project with Eclipse compiler" name="build-eclipse-compiler">
+        <property name="build.compiler" value="org.eclipse.jdt.core.JDTCompilerAdapter"/>
+        <antcall target="build"/>
+    </target>
+    <target name="ArithmeticOperators">
+        <java classname="test.package1.ArithmeticOperators" failonerror="true" fork="yes">
+            <classpath refid="run.ArithmeticOperators.classpath"/>
+        </java>
+    </target>
+    <target name="Array1D">
+        <java classname="test.package1.Array1D" failonerror="true" fork="yes">
+            <classpath refid="run.Array1D.classpath"/>
+        </java>
+    </target>
+    <target name="Array2D">
+        <java classname="test.package2.Array2D" failonerror="true" fork="yes">
+            <classpath refid="run.Array2D.classpath"/>
+        </java>
+    </target>
+    <target name="Array3D">
+        <java classname="test.package2.Array3D" failonerror="true" fork="yes">
+            <classpath refid="run.Array3D.classpath"/>
+        </java>
+    </target>
+    <target name="ArrayList">
+        <java classname="test.package3.arrayList" failonerror="true" fork="yes">
+            <classpath refid="run.ArrayList.classpath"/>
+        </java>
+    </target>
+    <target name="arrayListDemo">
+        <java classname="test.package3.arrayListDemo" failonerror="true" fork="yes">
+            <classpath refid="run.arrayListDemo.classpath"/>
+        </java>
+    </target>
+    <target name="BinaryToDecimal">
+        <java classname="test.package1.BinaryToDecimal" failonerror="true" fork="yes">
+            <classpath refid="run.BinaryToDecimal.classpath"/>
+        </java>
+    </target>
+    <target name="BitWiseOperator">
+        <java classname="test.package1.BitWiseOperator" failonerror="true" fork="yes">
+            <classpath refid="run.BitWiseOperator.classpath"/>
+        </java>
+    </target>
+    <target name="ComparisonOperator">
+        <java classname="test.package1.ComparisonOperator" failonerror="true" fork="yes">
+            <classpath refid="run.ComparisonOperator.classpath"/>
+        </java>
+    </target>
+    <target name="Cuboid">
+        <java classname="test.package5.Cuboid" failonerror="true" fork="yes">
+            <classpath refid="run.Cuboid.classpath"/>
+        </java>
+    </target>
+    <target name="DoWhile">
+        <java classname="test.package2.DoWhile" failonerror="true" fork="yes">
+            <classpath refid="run.DoWhile.classpath"/>
+        </java>
+    </target>
+    <target name="EnhancedFor">
+        <java classname="test.package2.EnhancedFor" failonerror="true" fork="yes">
+            <classpath refid="run.EnhancedFor.classpath"/>
+        </java>
+    </target>
+    <target name="ForLoop">
+        <java classname="test.package2.ForLoop" failonerror="true" fork="yes">
+            <classpath refid="run.ForLoop.classpath"/>
+        </java>
+    </target>
+    <target name="hashmapdemo">
+        <java classname="test.package4.hashmapdemo" failonerror="true" fork="yes">
+            <classpath refid="run.hashmapdemo.classpath"/>
+        </java>
+    </target>
+    <target name="HashSetDemo">
+        <java classname="test.package3.HashSetDemo" failonerror="true" fork="yes">
+            <classpath refid="run.HashSetDemo.classpath"/>
+        </java>
+    </target>
+    <target name="HelloWorld">
+        <java classname="test.package1.HelloWorld" failonerror="true" fork="yes">
+            <classpath refid="run.HelloWorld.classpath"/>
+        </java>
+    </target>
+    <target name="IfElseIf">
+        <java classname="test.package1.IfElseIf" failonerror="true" fork="yes">
+            <classpath refid="run.IfElseIf.classpath"/>
+        </java>
+    </target>
+    <target name="linkedListdemo">
+        <java classname="test.package3.linkedListdemo" failonerror="true" fork="yes">
+            <classpath refid="run.linkedListdemo.classpath"/>
+        </java>
+    </target>
+    <target name="LogicalOperator">
+        <java classname="test.package1.LogicalOperator" failonerror="true" fork="yes">
+            <classpath refid="run.LogicalOperator.classpath"/>
+        </java>
+    </target>
+    <target name="Main">
+        <java classname="quickstart.Main" failonerror="true" fork="yes">
+            <jvmarg line="-jar /opt/ast/kis/distrib/kabira/ast/java/deploy.jar hostname=192.168.28.129 adminport=2000 domainnode=A username=guest password=guest"/>
+            <classpath refid="run.Main.classpath"/>
+        </java>
+    </target>
+    <target name="NestedFor">
+        <java classname="test.package2.NestedFor" failonerror="true" fork="yes">
+            <classpath refid="run.NestedFor.classpath"/>
+        </java>
+    </target>
+    <target name="NestedIf">
+        <java classname="test.package1.NestedIf" failonerror="true" fork="yes">
+            <classpath refid="run.NestedIf.classpath"/>
+        </java>
+    </target>
+    <target name="queuedemo">
+        <java classname="test.package4.queuedemo" failonerror="true" fork="yes">
+            <classpath refid="run.queuedemo.classpath"/>
+        </java>
+    </target>
+    <target name="stacksdemo">
+        <java classname="test.package4.stacksdemo" failonerror="true" fork="yes">
+            <classpath refid="run.stacksdemo.classpath"/>
+        </java>
+    </target>
+    <target name="StreamsDemo">
+        <java classname="test.package5.StreamsDemo" failonerror="true" fork="yes">
+            <classpath refid="run.StreamsDemo.classpath"/>
+        </java>
+    </target>
+    <target name="StudentDemo">
+        <java classname="test.package5.StudentDemo" failonerror="true" fork="yes">
+            <classpath refid="run.StudentDemo.classpath"/>
+        </java>
+    </target>
+    <target name="SwitchDemo">
+        <java classname="test.package1.SwitchDemo" failonerror="true" fork="yes">
+            <classpath refid="run.SwitchDemo.classpath"/>
+        </java>
+    </target>
+    <target name="TestHelloWorld">
+        <java classname="test.package1.TestHelloWorld" failonerror="true" fork="yes">
+            <classpath refid="run.TestHelloWorld.classpath"/>
+        </java>
+    </target>
+    <target name="treemapdemo">
+        <java classname="test.package4.treemapdemo" failonerror="true" fork="yes">
+            <classpath refid="run.treemapdemo.classpath"/>
+        </java>
+    </target>
+    <target name="treesetdemo">
+        <java classname="test.package3.treesetdemo" failonerror="true" fork="yes">
+            <classpath refid="run.treesetdemo.classpath"/>
+        </java>
+    </target>
+    <target name="UnaryOperators">
+        <java classname="test.package1.UnaryOperators" failonerror="true" fork="yes">
+            <classpath refid="run.UnaryOperators.classpath"/>
+        </java>
+    </target>
+</project>
