@@ -1,0 +1,4 @@
+SELENIUM GRID:-
+cmd command:   java -jar selenium-server-standalone-3.141.59.jar -role hub
+Nodes should register to http://192.168.0.105:4444/grid/register/
+Clients should connect to http://192.168.0.105:4444/wd/hub

@@ -1,0 +1,8 @@
+For the same
+Access Token : f0rf13pxtxp7mftwc23rq6e52yvmi5um
+NOTE: pls, pass Access token for every request 
+Header: Authorization: Bearer [access_token]
+
+NOTE: Pls, Find Sample Data Attached. 
+
+This application is deployed and ready to test, please let me know if we have to connect for running a few calls. 

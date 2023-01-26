@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="windows-1252" ?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+            xmlns:smsg="http://expertz.me/data/eCommerce/ShoppingService/1.0"
+            targetNamespace="http://expertz.me/data/eCommerce/ShoppingService/1.0"
+            elementFormDefault="qualified">
+            
+            <xsd:element name="faultMessage" type="xsd:string"/>
+            <xsd:complexType name="FaultMessage">
+              <xsd:sequence>
+                <xsd:element name="errorCode" type="xsd:string"/>
+                <xsd:element name="errorDesc" type="xsd:string"/>                
+              </xsd:sequence>
+            </xsd:complexType>
+      <xsd:element name="sessionId" type="smsg:SessionId"/>
+      <xsd:simpleType name="SessionId">
+        <xsd:restriction base="xsd:string"></xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="PurchaseItem">
+        <xsd:restriction base="xsd:string"></xsd:restriction>
+      </xsd:simpleType>
+      <xsd:element name="purchaseRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="sessionId" type="smsg:SessionId"/>
+            <xsd:element name="purchaseItem" type="smsg:PurchaseItem"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="loginRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="username" type="xsd:string"/>
+            <xsd:element name="password" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="logoutRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="sessionId" type="smsg:SessionId"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="logoutResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="logoutMessage" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="findRequest">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="sessionId" type="xsd:string"/>
+            <xsd:element name="findString" type="xsd:string"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="findResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="item" type="smsg:ItemType"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="ItemType">
+        <xsd:sequence>
+          <xsd:element name="id" type="xsd:string"/>
+          <xsd:element name="description" type="xsd:string"/>
+          <xsd:element name="price" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:element name="purchaseResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element name="purchaseStatus" type="smsg:PurchaseStatusType"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:complexType name="PurchaseStatusType">
+        <xsd:sequence>
+          <xsd:element name="id" type="xsd:string"/>
+          <xsd:element name="stockStatus" type="xsd:string"/>
+          <xsd:element name="expectedDelivery" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+</xsd:schema>

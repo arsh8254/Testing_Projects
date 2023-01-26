@@ -1,0 +1,6 @@
+SDK PATH:-       C:\Users\Administrator\AppData\Local\Android\Sdk
+PLATFORM TOOLS:- C:\Users\Administrator\AppData\Local\Android\Sdk\platform-tools
+TOOLS PATH:-     C:\Users\Administrator\AppData\Local\Android\Sdk\tools
+BIN PATH:-       C:\Users\Administrator\AppData\Local\Android\Sdk\tools\bin
+NODE JS:-        C:\Program Files\nodejs
+NODE BIN:-       C:\Program Files\nodejs\node_modules\npm\bin

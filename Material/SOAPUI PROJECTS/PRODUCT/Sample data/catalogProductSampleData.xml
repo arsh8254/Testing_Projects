@@ -1,0 +1,9 @@
+
+                  <sku>SKU00001</sku>
+                  <name>MacBook Air</name>
+                  <attributeSetId>4</attributeSetId> //default value 4
+                  <price>100</price>
+                  <typeId>simple</typeId> //for value refer catalogProductTypeListV1 WSDL Endpoint
+                  
+                  
+                  

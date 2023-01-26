@@ -1,0 +1,195 @@
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Understanding Web Services
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+http://html2xml.nl/Services/Calculator/Version1/Calculator.asmx?WSDL
+http://www.webservicex.net/CurrencyConvertor.asmx?WSDL
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+
+Introduction to soapUI
+http://www.webservicex.net/CurrencyConvertor.asmx?WSDL
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+Mock soapUI
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// Generate dynamic session ID
+def sessionid = String.valueOf( Math.random() ).substring( 2 )
+
+// Set the session ID in the request contenxt so that we can use it  in mock response 
+requestContext.sessionid = sessionid
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Fault Request Update
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+<soapenv:Envelope xmlns:soapenv="http://schemas.xmlsoap.org/soap/envelope/" xmlns:ns="http://expertz.me/data/eCommerce/ShoppingService/1.0">
+  <soapenv:Body>
+    <soapenv:Fault>
+      <faultcode>${faultCode}</faultcode>
+      <faultstring xml:lang="en-US">${faultShortDesc}</faultstring>
+      <!--Optional:-->
+      <faultactor>${faultCausedBy}</faultactor>
+      <!--Optional:-->
+      <detail>
+        <ns:faultMessage>${faultDesc}</ns:faultMessage>
+        <!--You may enter ANY elements at this point-->
+      </detail>
+    </soapenv:Fault>
+  </soapenv:Body>
+</soapenv:Envelope>
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+dispatch Policy
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// Initialize Util classes to retrieve XML value
+def groovyUtils = new com.eviware.soapui.support.GroovyUtils( context )
+def holder = groovyUtils.getXmlHolder( mockRequest.requestContent )
+
+// Get the username and Password values provided
+def username = holder.getNodeValue( "//*:username" )
+def password = holder.getNodeValue( "//*:password" )
+
+// validate by checking that the User is not already logged in
+// Username is of required length and Password doesn't end with 123!!!
+if( context.hasProperty( username )  || username.length() > 10 || username.length() < 3 || password.endsWith( "123" )){
+	// If user is already loggged in, set different fault codes compared to others
+	if(context.hasProperty( username )){
+		requestContext.faultCode = 'APP001'
+		requestContext.faultShortDesc = 'Already Logged In'
+		requestContext.faultCausedBy = 'Auth System'
+		requestContext.faultDesc = 'User is already logged in. If you want to login as another user logout first'
+	}
+	else{
+		// Set relevant error code and desc. For the demo, we will keep it simple
+		requestContext.faultCode = 'APP002'
+		requestContext.faultShortDesc = 'Invalid Login Credentials'
+		requestContext.faultCausedBy = 'Auth System'
+		requestContext.faultDesc = 'Invalid Login Credentials. Please try again.'
+	}
+	// Specify which response to send back
+	return "Fault Login"	
+}
+
+// Seems like a valid request, so generate session ID
+// Note that we don't do password verification in the demo
+def sessionid = String.valueOf( Math.random() ).substring( 2 )
+
+// Set the user name and session ID as valid sessions and logged in user in context
+// This helps in looking up to see if the user is logged in or if this is a valid session ID
+context.setProperty( username, sessionid )
+context.setProperty( sessionid, username )
+
+requestContext.sessionid = sessionid
+return "Successful Login"
+
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Scripting using soapUI
+SLA Check
+assert messageExchange.timeTaken < 50
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Check sessionId
+import com.eviware.soapui.support.XmlHolder
+
+def holder = new XmlHolder( messageExchange.responseContentAsXml)
+
+assert holder.getNodeValue("//ns:sessionId") != null
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Conditional Purchase
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+// Get the username by property expansion
+def username = context.expand( '${Call Login Service#Request#//ns:username}' )
+
+// Print the username just so we can debug it
+log.info "User is $username"
+
+// If user is not ExpertzMe, the next step to execute should be logout service
+if(username != "ExpertzMe"){
+	log.info "Not a previleged user - No purchase for you!!!"
+	testRunner.gotoStepByName("Call Logout Service")
+}
+else{
+// Execute the next step as normal
+log.info "Proceed to purchase"
+}
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+modularize
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+import com.eviware.soapui.model.testsuite.TestRunner.Status
+
+// get TestCase
+def tc = testRunner.testCase.testSuite.project.testSuites["Shopping Service Functional Test"].testCases["Property Expansion Login and Logout"]
+
+// set credential properties from the script itself
+tc.testSteps["Username and Password"].setPropertyValue("Username", "ExpertzMe2" )
+tc.testSteps["Username and Password"].setPropertyValue("Password", "Welcome1" )
+ 
+// run test synchrouously
+def runner = tc.run( null, false )
+
+// show the test case result status
+log.info "Status: $runner.status, time taken for TestCase was: $runner.timeTaken ms"
+log.info "Number of test steps which ran: " + runner.results.size()
+
+// assert that it didn't fail
+assert runner.status != Status.FAILED : runner.reason
+
+// assert that only four steps ran!!
+assert runner.results.size() == 4
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+modularize with external input
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+import com.eviware.soapui.model.testsuite.TestRunner.Status
+
+// get TestCase
+def tc = testRunner.testCase.testSuite.project.testSuites["Shopping Service Functional Test"].testCases["Property Expansion Login and Logout"]
+
+// Read an external file to read the config
+def authconfig = new ConfigSlurper().parse(new File("C:/Users/chethan/Desktop/SOAPUI/Resources/SOAPUI Projects/log/auth.properties").toURL())
+
+// set credential properties from the script itself
+tc.testSteps["Username and Password"].setPropertyValue("Username", authconfig.auth.username )
+tc.testSteps["Username and Password"].setPropertyValue("Password", authconfig.auth.password )
+ 
+// run test synchrouously
+def runner = tc.run( null, false )
+
+// set the log directory
+filePath = authconfig.log.filepath
+
+for ( testStepResult in runner.results )
+{
+	// If you want to debug in the console, uncomment the following line
+	/*
+	for ( testStepMessage in testStepResult.getMessages() )
+	{
+		log.info testStepMessage
+	}
+	/**/
+	// Open a new file stream to the directory pointed to by the file path
+	fos = new FileOutputStream( filePath + testStepResult.testStep.label.replaceAll(~/\?/, "") + '.txt', true )	
+	pw = new PrintWriter( fos )
+	testStepResult.writeTo( pw )
+	// Close everything
+	pw.close()
+	fos.close()
+
+	//If you want summary details printed in log window, uncomment the following line
+	//log.info "Step: $testStepResult.testStep.label, Status: $testStepResult.status, time taken for TestCase Step was: $testStepResult.timeTaken ms"
+}
+
+// show the test case result status
+log.info "Status: $runner.status, time taken for TestCase was: $runner.timeTaken ms"
+log.info "Number of test steps which ran: " + runner.results.size()
+
+// assert that it didn't fail
+assert runner.status != Status.FAILED : runner.reason
+// assert that only expected number of steps ran!!
+log.info authconfig.auth.username
+assert runner.results.size() == authconfig.auth.privilegedSteps
+
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+Performance test user value
++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+User${=String.valueOf(Math.random()*1000).substring(0,5)}

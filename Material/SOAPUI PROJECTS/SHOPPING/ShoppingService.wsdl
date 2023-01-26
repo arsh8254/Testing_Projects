@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions name="ShoppingService" targetNamespace="http://expertz.me/service/eCommerce/ShoppingService/1.0"
+                  xmlns="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:sdt="http://expertz.me/data/eCommerce/ShoppingService/1.0"
+                  xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+                  xmlns:ss="http://expertz.me/service/eCommerce/ShoppingService/1.0"
+                  xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+                  xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+                  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <types>
+    <xsd:schema>
+        <xsd:import namespace="http://expertz.me/data/eCommerce/ShoppingService/1.0" schemaLocation="ShoppingService.xsd"/>
+    </xsd:schema>
+  </types>
+  <message name="loginRequest">
+    <part name="loginRequest" element="sdt:loginRequest"></part>
+  </message>
+  <message name="loginResponse">
+    <part name="sessionId" element="sdt:sessionId"></part>
+  </message>
+  <message name="login_faultMsg">
+    <part name="loginFault" element="sdt:faultMessage"></part>
+  </message>
+  <message name="findRequest">
+    <part name="findRequest" element="sdt:findRequest"></part>
+  </message>
+  <message name="findResponse">
+    <part name="findResponse" element="sdt:findResponse"></part>
+  </message>
+  <message name="find_faultMsg">
+    <part name="findFault"  element="sdt:faultMessage"></part>
+  </message>
+  <message name="purchaseRequest">
+    <part name="purchaseRequest" element="sdt:purchaseRequest"></part>
+  </message>
+  <message name="purchaseResponse">
+    <part name="purchaseResponse" element="sdt:purchaseResponse"></part>
+  </message>
+  <message name="purchase_faultMsg">
+    <part name="purchaseFault"  element="sdt:faultMessage"></part>
+  </message>
+  <message name="logoutRequest">
+    <part name="logoutRequest" element="sdt:logoutRequest"></part>
+  </message>
+  <message name="logoutResponse">
+    <part name="logoutResponse" element="sdt:logoutResponse"></part>
+  </message>
+  <message name="logout_faultMsg">
+    <part name="logoutFault"  element="sdt:faultMessage"></part>
+  </message>
+  <portType name="ShoppingServicePt">
+    <operation name="login">
+      <input message="ss:loginRequest"></input>
+      <output message="ss:loginResponse"></output>
+      <fault name="fault" message="ss:login_faultMsg"></fault>
+    </operation>
+    <operation name="logout">
+      <input message="ss:logoutRequest"></input>
+      <output message="ss:logoutResponse"></output>
+      <fault name="fault" message="ss:logout_faultMsg"></fault>
+    </operation>
+    <operation name="find">
+      <input message="ss:findRequest"></input>
+      <output message="ss:findResponse"></output>
+      <fault name="fault" message="ss:find_faultMsg"></fault>
+    </operation>
+    <operation name="purchase">
+      <input message="ss:purchaseRequest"></input>
+      <output message="ss:purchaseResponse"></output>
+      <fault name="fault" message="ss:purchase_faultMsg"></fault>
+    </operation>
+  </portType>
+  <binding name="ShoppingServiceSoapBinding" type="ss:ShoppingServicePt">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <operation name="login">
+      <soap:operation soapAction="http://expertz.me/service/eCommerce/ShoppingService/1.0/login"/>
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+      <fault name="fault">
+        <soap:fault name="fault" use="literal"/>
+      </fault>
+    </operation>
+    <operation name="logout">
+      <soap:operation soapAction="http://expertz.me/service/eCommerce/ShoppingService/1.0/logout"/>
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="find">
+      <soap:operation soapAction="http://expertz.me/service/eCommerce/ShoppingService/1.0/find"/>
+      <input>
+        <soap:body use="literal" />
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+    <operation name="purchase">
+      <soap:operation soapAction="http://expertz.me/service/eCommerce/ShoppingService/1.0/purchase"/>
+      <input>
+        <soap:body use="literal"/>
+      </input>
+      <output>
+        <soap:body use="literal" />
+      </output>
+    </operation>
+  </binding>
+  <service name="ShoppingService">
+    <port name="ShoppingServicePort" binding="ss:ShoppingServiceSoapBinding">
+      <soap:address location="http://localhost:8088/mockShoppingService"/>
+    </port>
+  </service>
+</definitions>

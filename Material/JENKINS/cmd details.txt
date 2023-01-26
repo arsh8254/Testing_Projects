@@ -1,0 +1,33 @@
+go to cmd and check where is java so that you wil get path
+
+
+maven path
+
+C:\Users\dell\Desktop\ast\apache-maven-3.8.4-bin\apache-maven-3.8.4
+
+java path
+
+C:\Program Files\Java\jdk1.8.0_321
+
+git bin path in exe
+
+C:\Program Files\Git\bin\git.exe
+
+Go to search and type 
+go to environment variables 
+go to system variables
+set new home for each 
+1)JAVA_HOME
+2)MAVEN_HOME
+now select the  path tab 
+and delete the path selected 
+and select new then paste
+1)git path
+2)maven path  and add \bin
+3)java path and add \bin
+
+and go to cmd
+
+java -version
+git --version
+mvn -version

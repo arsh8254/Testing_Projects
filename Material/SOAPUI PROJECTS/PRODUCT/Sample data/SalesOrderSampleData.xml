@@ -1,0 +1,13 @@
+			<customerEmail>mohankrishna176@gmail.com</customerEmail>
+            <items>
+              <item>
+                    <sku>SKU00001</sku>     
+                    <productId>5</productId>
+				    <qtyOrdered>3</qtyOrdered>
+				    <price>100</price>
+                        
+               </item>
+        	</items>
+            <payment>
+                  <method>checkmo</method> //default value checkmo
+            </payment>

@@ -1,0 +1,100 @@
+{
+	"id": "4e473ca7-3e91-4ea9-8a26-df088ce3b9ed",
+	"name": "Google Maps",
+	"timestamp": "2022-03-12T18:33:30.000Z",
+	"collection_id": "19994360-9cdc59a0-3f07-42f0-834c-bfe15394b3e5",
+	"folder_id": 0,
+	"environment_id": "19994360-bb23aab9-ec6d-4ecb-aa67-705c626c269e",
+	"totalPass": 8,
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "aa57de80-680e-433b-938a-4ae3da9e3890",
+			"name": "Add",
+			"time": 103,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true,
+				"add contains value": true,
+				"status": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 2,
+					"fail": 0
+				},
+				"add contains value": {
+					"pass": 2,
+					"fail": 0
+				},
+				"status": {
+					"pass": 2,
+					"fail": 0
+				}
+			},
+			"times": [
+				202,
+				103
+			],
+			"allTests": [
+				{
+					"Status code is 200": true,
+					"add contains value": true,
+					"status": true
+				},
+				{
+					"Status code is 200": true,
+					"add contains value": true,
+					"status": true
+				}
+			]
+		},
+		{
+			"id": "d84825b9-544f-46f8-8820-0861752cb0db",
+			"name": "Delete",
+			"time": 122,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {
+				"Status code is 200": true
+			},
+			"testPassFailCounts": {
+				"Status code is 200": {
+					"pass": 2,
+					"fail": 0
+				}
+			},
+			"times": [
+				131,
+				122
+			],
+			"allTests": [
+				{
+					"Status code is 200": true
+				},
+				{
+					"Status code is 200": true
+				}
+			]
+		}
+	],
+	"count": 2,
+	"totalTime": 558,
+	"collection": {
+		"requests": [
+			{
+				"id": "aa57de80-680e-433b-938a-4ae3da9e3890",
+				"method": "POST"
+			},
+			{
+				"id": "d84825b9-544f-46f8-8820-0861752cb0db",
+				"method": "POST"
+			}
+		]
+	}
+}

@@ -1,0 +1,156 @@
+PROVIDING SESSIONID TO ENTIRE PROJECT:-
+
+import com.eviware.soapui.support.XmlHolder
+//i am going to write a groovy script to capture the response and fetch the sessionID and store it in test case/test suite level
+//i have created a varibale called response
+//i want to fetch the entire response and store it in this variable
+def response = context.testCase.getTestStepByName('login').getPropertyValue("Response")
+//i want to store this entire response in a holder
+//so that i can get a specific data and store it again
+def holder = new XmlHolder(response)
+//get node value is used when i want to fetch a specific response data
+def session = holder.getNodeValue("//*:sessionId")
+//i want to store this session id in test suite level so that i can use it in all my test case
+context.testCase.testSuite.setPropertyValue("sessionId",session)
+//can i store it in the test case
+context.testCase.setPropertyValue("sessionId",session)
+//i want to access this acroos project level
+context.testCase.testSuite.project.setPropertyValue("sessionId",session) 
+
+
+
+
+SCRIPT BASED EXECUTION:-
+
+import com.eviware.soapui.model.testsuite.TestRunner.Status
+//From here i want to execute Script Based Execution
+//if i want to run script based execution i have to use Test Runner
+//because it is in different test suite
+def tc = testRunner.testCase.testSuite.project.testSuites["shooping service functional"].testCases["script based execution"]
+tc.testSteps["username and password properties"].setPropertyValue("username","Niharika")
+tc.testSteps["username and password properties"].setPropertyValue("password","Welcome12")
+//i am running the entire test case by changing the data
+//if you are running more than one step in testcase
+//you have to say null means there is no context and false because i am not checking any condition
+tc.run(null,false)
+//i want to check what all the steps got executed
+def teststeplist = tc.getTestStepList()
+log.info teststeplist.size()
+//log.info TSL
+//i want to see the names of the my test steps
+teststeplist.each
+{
+	def tsname = it.name
+	log.info tsname
+	//fetch the currect step which i am executing
+	//log.info tc.getCurrentStep().name
+}
+
+
+
+GROOVY TESTING:-
+
+def tc = testRunner.testCase.testSuite.project.testSuites["shopping service functional"].testCases["property expansion login and logout"]
+tc.testSteps["username and password properties"].setPropertyValue("username","aryan")
+tc.testSteps["username and password properties"].setPropertyValue("password","Welcome1")
+//this line will execute the entire testcase
+def runner = tc.run(null,false)
+def teststeplist = tc.getTestStepList()
+//log.info TSL
+//i want see the names of my test steps
+teststeplist.each
+{
+	def tsname = it.name
+	log.info tsname
+	//fetch the currect step which i am executing
+	//log.info tc.getCurrentStep().name
+}
+//i want to know the status of my execution
+//this will provide me the execution status
+log.info "Status: $runner.status"
+//This will provide me the time taken for execution
+log.info "TimeTaken: $runner.timeTaken"
+//i want to know the number of steps executed
+log.info "Number of Steps executed is :" + runner.results.size()
+//Assert
+assert runner.results.size()==6
+
+
+
+DATA DRIVEN TESTING:-
+
+import jxl.*
+def filepath ="C://Users//Administrator//Documents//test data.xls"
+File excel = new File(filepath)
+Workbook wb = Workbook.getWorkbook(excel)
+Sheet sh = wb.getSheet("Sheet1")
+def row = sh.getRows().toInteger()
+def column = sh.getColumns().toInteger()
+log.info " The number of rows are $row and The number of columns are $column"
+for( def i=0;i<row;i++)
+{
+	for(def j=0;j<column;j++)
+	{
+		if(j==0)
+		{
+			username = sh.getCell(j,i).getContents()
+		}
+		else
+		{
+			password = sh.getCell(j,i).getContents()
+		}
+	}
+	log.info "$username and $password"
+}
+
+
+
+REST USING JSON:-
+
+import groovy.json.JsonSlurper
+def response = context.testCase.getTestStepByName("add").getPropertyValue("Response")
+def holder = new JsonSlurper().parseText(response)
+def placeid = holder.place_id
+context.testCase.testSuite.setPropertyValue("placeid",placeid)
+
+
+
+REST USING XML:-
+
+import com.eviware.soapui.support.XmlHolder
+def response = context.testCase.getTestStepByName('add').getPropertyValue("Response")
+def holder = new XmlHolder(response)
+//get node value is used when i want to fetch a specific response data
+def placeid= holder.getNodeValue("//place_id")
+//log.info placeid
+context.testCase.testSuite.setPropertyValue("placeid",placeid)
+
+
+
+DELETE A CERTAIN EMAIL USING CODE:-
+
+import groovy.json.JsonSlurper
+def response = context.testCase.getTestStepByName("getalluser").getPropertyValue("response")
+def holder = new JsonSlurper().parseText(response)
+def count = holder.count.toInteger()
+for(def i=0;i<count;i++)
+{
+	if(holder.users[i].email=="Shesha858.7@gmail.com")
+	{
+		def id = holder.users[i]._id
+		log.info id
+		def id1 = id.toString()
+		context.testCase.testSuite.setPropertyValue("id",id1)
+	}
+}
+
+
+
+DELETE THE USER AT A CERTAIN ARRAY USING CODE:-
+
+import groovy.json.JsonSlurper
+def response = context.testCase.getTestStepByName("get user").getPropertyValue("Response")
+def holder = new JsonSlurper().parseText(response)
+def count = holder.count
+def id = holder.users[200]._id
+context.testCase.testSuite.setPropertyValue("id", id)

@@ -1,0 +1,38 @@
+
+
+jenkins go to jenkins.war folder
+cmd prompt type  -  
+java -jar jenkins.war
+
+go to browser type localhost:8080 and enter
+cred details are admin password also admin
+
+
+
+Git commands
+
+ git init
+ git add .
+ git status
+ git commit -m 'msg name'
+ git remote add origin https://github.com/Astha13jain/Project.git(copied url from repository)
+ git push -u origin master
+ (here origin is any name which you give to file)
+ 
+ 
+ how to run your file in jenkins?
+ 
+ go to jenkins url localhost:8080
+ create new item
+ go to maven proj click on jenkins and fill details
+ then upload your cred and repo  and save then build your workspace open console ouput
+ 
+ 
+how to push proj to git from java?
+
+ryt click on proj->go to team->share proj->create->write any other name->ok
+then again click on proj->ryt click->team-> commit->unstage to stage->push 
+
+how to generate token in git?
+
+go to setting->go to developers->generate token->use this token in password for git

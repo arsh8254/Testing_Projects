@@ -1,0 +1,39 @@
+How to create soapui proj folder ?
+
+create a folder in desktop as soapuiproj(any name)
+open the folder go to cmd and paste mvn archetype:generate -DgroupId=com.mycompany.app -DartifactId=my-app -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=1.4 -DinteractiveMode=false
+you will see in folder two folder are created one for dev and other for tester
+
+how to run soapui proj in cmd
+
+open the soap xml file proj in the file path and paste in soapuiproj folder
+paste the pom file in proj folder
+in pom file paste the proj name(soap proj) in configuration tag beside.xml
+and in cmd write mvn site
+
+create maven proj in java ?
+
+Go to file->others->maven->maven proj>next..finish
+
+TWO TEST FRAMEWORK
+1) JUNIT- Basically used by dev for testing code
+2) Testng -similar to junit can be used in dev and testing
+
+
+
+
+
+to download any jar files go to pom file in java add dependancy and it wil automatically downloaded in m2.reposotory in path
+C:\Users\dell\.m2\repository\io
+
+Difference between junit and testng
+1)in junit even in one method fails it will execute aftertest nd in testng beforetest one fails other will also not execute
+2) in junit annotation is different in junit we have @before @after and in testng we have @beforetest @aftertest
+
+3) in testng we have reports and in junit we dont have reports
+
+
+java proj in cmd?
+
+
+how to run java proj in cmd->ryt click->click on properties->click on icon->open cmd->type mvn test  
